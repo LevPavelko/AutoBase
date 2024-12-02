@@ -1,9 +1,16 @@
-CREATE TABLE IF NOT EXISTS  Dispatchers (
+CREATE TABLE IF NOT EXISTS Users (
     id serial primary key,
     first_name varchar(30) not null,
     last_name varchar(30) not null,
+    age integer not null,
     email varchar(50) not null,
-    password varchar(50) not null
+    role varchar(30),
+   password varchar(150) not null
+);
+CREATE TABLE IF NOT EXISTS  Dispatchers (
+    id serial primary key,
+    user_id integer not null,
+    FOREIGN KEY(user_id) REFERENCES Users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Cars(
@@ -14,13 +21,10 @@ CREATE TABLE IF NOT EXISTS Cars(
 );
 CREATE TABLE IF NOT EXISTS Drivers (
     id serial primary key,
-    first_name varchar(30) not null,
-    last_name varchar(30) not null,
-    age integer not null,
-    email varchar(30) not null,
-    password varchar(50) not null,
+    user_id integer not null,
     experience_In_Years int not null,
-    is_busy BOOLEAN not null
+    is_busy BOOLEAN not null,
+    FOREIGN KEY(user_id) REFERENCES Users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Orders(
