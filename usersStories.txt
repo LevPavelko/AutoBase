@@ -1,0 +1,15 @@
+Teacher can view own schedule flow:
+
+Given user is logged on as Teacher
+
+- User can see and navigate to `My Schedule` menu
+- User should see own Teacher schedule according with selected date/range filter
+
+Student can view schedule from his group:
+
+Given user is logged on as Student
+
+- User can see his subjects in 'My subjects' menu
+- User can see and navigate to `My Schedule` menu
+- User should see own Group schedule according with selected date/range filter
+- User can see the teachers that asociates whith his group in 'My teachers' menu

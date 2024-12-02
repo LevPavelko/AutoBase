@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html
+        xmlns =="http://www.w3.org/1999/ xmlns th =="http://www.thymeleaf.>
+<head>
+    <meta charset="utf-8">
+    <title>Название документа</title>
+    <style>
+        #navbar {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            width: 200px;
+        }
+        #navbar li {
+            border-left: 10px solid #666;
+            border-bottom: 1px solid #666;
+        }
+        #navbar a {
+            background-color: #949494;
+            color: #fff;
+            padding: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            border-left: 5px solid #33ADFF;
+            display: block;
+        }
+        #navbar a:hover {
+            background-color: #666;
+            border-left: 5px solid #3333FF;
+        }
+    </style>
+</head>
+
+<body>
+
+<ul id="navbar">
+    <li><a href="/students/get">Студенты</a></li>
+    <li><a href="/teachers/get">Преподаватели</a></li>
+    <li><a href="/subjects/get">Предметы</a></li>
+    <li><a href="/groups/get">Группы</a></li>
+</ul>
+
+</body>
+
+</html>
