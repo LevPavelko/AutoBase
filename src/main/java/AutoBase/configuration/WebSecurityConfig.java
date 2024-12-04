@@ -16,47 +16,47 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 @Configuration
 @EnableWebSecurity
-
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
     private final BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private MyBasicAuthenticationEntryPoint authenticationEntryPoint;
-    public WebSecurityConfig(UserService userService, BCryptPasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-    }
+
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http.csrf().disable();
+
+    http.authorizeRequests().mvcMatchers("/g").access("hasAnyRole('ROLE_DISPATCHER')");
+    http.authorizeRequests()
+            .mvcMatchers("/loginPage").permitAll()
+            .anyRequest().authenticated();
 
 
+    http.formLogin()
+            .loginProcessingUrl("/j_spring_security_check")
+            .loginPage("/loginPage")
+            .defaultSuccessUrl("/", true)
+            .failureUrl("/login?error=true")
+            .usernameParameter("email")
+            .passwordParameter("password");
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf().disable();
-
-        http.authorizeRequests().mvcMatchers("/", "/loginPage", "/logout").permitAll();
-        http.authorizeRequests().and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
-        http.authorizeRequests().mvcMatchers("/index").access("hasAnyRole('DRIVER')");
-        http.authorizeRequests().and().formLogin()
-                .loginProcessingUrl("/login")
-                .loginPage("/loginPage")
-                .defaultSuccessUrl("/")
-                .failureUrl("/loginPage?error=true")
-                .usernameParameter("email")
-                .passwordParameter("password").and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
-
-    }
+    http.logout()
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/logoutSuccessful");
+}
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);  // Указываем сервис аутентификации
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
     }
 }
 

@@ -1,12 +1,17 @@
+CREATE TABLE IF NOT EXISTS UserRole(
+    id serial primary key,
+    role varchar(30)
+);
 CREATE TABLE IF NOT EXISTS Users (
     id serial primary key,
     first_name varchar(30) not null,
     last_name varchar(30) not null,
     age integer not null,
     email varchar(50) not null,
-    role varchar(30),
-   password varchar(150) not null
-);
+    role_id integer not null,
+    password varchar(150) not null,
+    FOREIGN KEY(role_id) REFERENCES UserRole(id) ON DELETE CASCADE
+    );
 CREATE TABLE IF NOT EXISTS  Dispatchers (
     id serial primary key,
     user_id integer not null,
@@ -61,4 +66,7 @@ CREATE TABLE IF NOT EXISTS Trips(
     FOREIGN KEY(driver_id) REFERENCES Drivers(id) ON DELETE CASCADE,
     FOREIGN KEY(car_id) REFERENCES Cars(id) ON DELETE CASCADE,
     FOREIGN KEY(order_id) REFERENCES Orders(id) ON DELETE CASCADE
-)
+);
+
+insert into UserRole(role) values ('DRIVER');
+insert into UserRole(role) values ('DISPATCHER');

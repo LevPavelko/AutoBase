@@ -12,9 +12,18 @@ public class LoginController {
         return "loginPage";
     }
     @GetMapping(value = "/logoutSuccessful")
+
     public String logoutSuccessfulPage(Model model) {
         model.addAttribute("title", "Logout");
         return "logoutSuccessfulPage";
     }
+
+    @GetMapping(value = "/g")
+
+    public String g(Model model) {
+        model.addAttribute("title", "Logout");
+        return "g";
+    }
+
 
 }
