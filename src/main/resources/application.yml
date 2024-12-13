@@ -1,0 +1,13 @@
+spring:
+  datasource:
+      url: jdbc:postgresql://localhost:5432/autobase
+      username: postgres
+      password: admin
+      driverClassName: org.postgresql.Driver
+
+  flyway:
+      enabled: true
+      user: postgres
+      password: admin
+      schemas: public
+      url: jdbc:postgresql://localhost:5432/autobase
