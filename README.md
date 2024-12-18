@@ -1,3 +1,2 @@
-# university-cms
-
-University timetable application
+# AutoBase
+AutoBase is the final project by Java
