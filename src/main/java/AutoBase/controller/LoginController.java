@@ -18,11 +18,16 @@ public class LoginController {
         return "logoutSuccessfulPage";
     }
 
-    @GetMapping(value = "/g")
-
-    public String g(Model model) {
+    @GetMapping(value = "/indexDispatcher")
+    public String indexDispatcher(Model model) {
         model.addAttribute("title", "Logout");
-        return "g";
+        return "indexDispatcher";
+    }
+
+    @GetMapping(value = "/indexDriver")
+    public String indexDriver(Model model) {
+        model.addAttribute("title", "Logout");
+        return "indexDriver";
     }
 
 

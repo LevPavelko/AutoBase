@@ -13,6 +13,10 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    @Column (name = "type")
+    private CarType type;
+
     @Column(name = "is_free")
     private boolean isFree;
 

@@ -3,10 +3,7 @@ package AutoBase.dto;
 import lombok.Data;
 
 @Data
-public class DriverDTO {
+public class DispatcherDTO {
     private Long id;
     private UserDTO userDTO;
-    private int experienceInYears;
-    private boolean isBusy;
-
 }

@@ -1,6 +1,7 @@
 package AutoBase.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,8 +23,10 @@ public class Dispatcher {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "dispatcher", fetch = FetchType.LAZY)
-    private List<Order> orders = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "dispatcher", fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private List<Order> orders = new ArrayList<>();
 
 
 
