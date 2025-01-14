@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -18,9 +19,11 @@ public class OrderDTO {
 
     private int cargoWeight;
 
-    private Date requestData;
+    private LocalDate requestData;
 
     private String destination;
 
-    private Long dispatcher_id;
+    private DispatcherDTO dispatcher;
+
+    private boolean hasTrip;
 }
