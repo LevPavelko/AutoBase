@@ -4,6 +4,7 @@ package AutoBase.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -22,7 +23,7 @@ public class Order {
     private int cargoWeight;
 
     @Column(name = "request_data")
-    private Date requestData;
+    private LocalDate requestData;
 
     @Column
     private String Destination;
@@ -31,5 +32,7 @@ public class Order {
     @JoinColumn(name = "dispatcher_id")
     private Dispatcher dispatcher;
 
+    @Column(name = "has_trip")
+    private boolean hasTrip;
 
 }

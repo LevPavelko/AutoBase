@@ -26,8 +26,8 @@ public class Driver {
     private boolean isBusy;
 
 
-    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Trip> trips;
+//    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Trip> trips;
 
 
 }
