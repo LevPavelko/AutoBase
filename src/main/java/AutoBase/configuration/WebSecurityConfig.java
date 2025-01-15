@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();
 
-    http.authorizeRequests().mvcMatchers("/indexDispatcher").access("hasAnyRole('ROLE_DISPATCHER')");
+    //http.authorizeRequests().mvcMatchers("/indexDispatcher").access("hasAnyRole('ROLE_DISPATCHER')");
     http.authorizeRequests().mvcMatchers("/orders").access("hasAnyRole('ROLE_DISPATCHER')");
     http.authorizeRequests()
             .mvcMatchers("/loginPage").permitAll()
@@ -43,8 +43,8 @@ protected void configure(HttpSecurity http) throws Exception {
     http.formLogin()
             .loginProcessingUrl("/j_spring_security_check")
             .loginPage("/loginPage")
-//            .defaultSuccessUrl("/", true)
-            .successHandler(customAuthenticationSuccessHandler())
+            .defaultSuccessUrl("/home", true)
+//            .successHandler(customAuthenticationSuccessHandler())
             .failureUrl("/login?error=true")
             .usernameParameter("email")
             .passwordParameter("password");
@@ -64,27 +64,27 @@ protected void configure(HttpSecurity http) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
     }
 
-    @Bean
-    public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
-        return (request, response, authentication) -> {
-
-            String redirectUrl = "/";
-            var authorities = authentication.getAuthorities();
-
-            for (var authority : authorities) {
-                String role = authority.getAuthority();
-                if (role.equals("ROLE_DISPATCHER")) {
-                    redirectUrl = "/indexDispatcher";
-                    break;
-                } else if (role.equals("ROLE_DRIVER")) {
-                    redirectUrl = "/indexDriver";
-                    break;
-                }
-            }
-
-            response.sendRedirect(redirectUrl);
-        };
-    }
+//    @Bean
+//    public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+//        return (request, response, authentication) -> {
+//
+//            String redirectUrl = "/";
+//            var authorities = authentication.getAuthorities();
+//
+//            for (var authority : authorities) {
+//                String role = authority.getAuthority();
+//                if (role.equals("ROLE_DISPATCHER")) {
+//                    redirectUrl = "/indexDispatcher";
+//                    break;
+//                } else if (role.equals("ROLE_DRIVER")) {
+//                    redirectUrl = "/indexDriver";
+//                    break;
+//                }
+//            }
+//
+//            response.sendRedirect(redirectUrl);
+//        };
+//    }
 }
 
 

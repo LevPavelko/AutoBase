@@ -8,19 +8,9 @@
     <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
 </head>
 <body>
-<header>
-    <a href="#" class="logo">AutoBase</a>
-    <nav class="site-nav">
-        <ul>
-            <li><a href="#">Orders</a></li>
-            <li><a href="#">Actionable Trips</a></li>
-            <li><a href="#">Drivers</a></li>
-            <li><a th:href="@{/logout}">Logout</a></li>
-        </ul>
-    </nav>
 
+    <th:block th:include="/menu/menu"></th:block>
 
-</header>
 
 <div class="orders-container">
     <div th:each="order : ${orders}" class="order-card">
@@ -28,7 +18,17 @@
         <div class="order-field"><strong>Cargo Weight:</strong> <span th:utext="${order.cargoWeight}"></span></div>
         <div class="order-field"><strong>Cargo Type:</strong> <span th:utext="${order.cargoType}"></span></div>
         <div class="order-field"><strong>Destination:</strong> <span th:utext="${order.destination}"></span></div>
+
+        <div th:if="${!order.hasTrip}">
+            <a th:href="@{'/AddTrip?orderId=' + ${order.id} }"
+               style="background-color: #09a305">
+                Make new trip
+            </a>
+
+        </div>
+
     </div>
+
 </div>
 
 </body>

@@ -1,5 +1,6 @@
 <header xmlns:th="http://www.thymeleaf.org">
-    <a href="#" class="logo">AutoBase</a>
+    <a th:href="@{/home}" class="logo">AutoBase</a>
+
     <nav class="site-nav">
         <ul>
             <li><a th:if="${#request.isUserInRole('ROLE_DISPATCHER')}" th:href="@{/orders}">Orders</a></li>
