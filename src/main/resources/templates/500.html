@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Server Error</title>
+  <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #e74c3c;
+    }
+    p {
+      font-size: 18px;
+      color: #ffffff;
+    }
+    a {
+      text-decoration: none;
+      color: #3498db;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<h1>500 - Server error</h1>
+<p>Sorry, the site cannot process your request at the moment.</p>
+<p><a th:href="@{/}">Go back to the homepage</a></p>
+</body>
+</html>

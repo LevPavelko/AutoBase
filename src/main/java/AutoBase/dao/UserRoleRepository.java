@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 @Transactional
 public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
@@ -15,4 +17,5 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
 @Query("SELECT ur.role FROM User u JOIN u.role ur WHERE u.id = ?1")
 String getRoleNameByUserId(Long userId);
 
+//Optional<UserRole> findById(int Id);
 }

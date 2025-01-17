@@ -12,12 +12,12 @@
     <th:block th:include="/menu/menu"></th:block>
 
 
-<div class="orders-container">
-    <div th:each="order : ${orders}" class="order-card">
-        <div class="order-field"><strong>Request Date:</strong> <span th:utext="${order.requestData}"></span></div>
-        <div class="order-field"><strong>Cargo Weight:</strong> <span th:utext="${order.cargoWeight}"></span></div>
-        <div class="order-field"><strong>Cargo Type:</strong> <span th:utext="${order.cargoType}"></span></div>
-        <div class="order-field"><strong>Destination:</strong> <span th:utext="${order.destination}"></span></div>
+<div class="items-container">
+    <div th:each="order : ${orders}" class="item-card">
+        <div class="item-field"><strong>Request Date:</strong> <span th:utext="${order.requestData}"></span></div>
+        <div class="item-field"><strong>Cargo Weight:</strong> <span th:utext="${order.cargoWeight}"></span></div>
+        <div class="item-field"><strong>Cargo Type:</strong> <span th:utext="${order.cargoType}"></span></div>
+        <div class="item-field"><strong>Destination:</strong> <span th:utext="${order.destination}"></span></div>
 
         <div th:if="${!order.hasTrip}">
             <a th:href="@{'/AddTrip?orderId=' + ${order.id} }"

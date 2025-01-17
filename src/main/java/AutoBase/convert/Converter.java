@@ -64,6 +64,19 @@ public class Converter {
         return userRoleDTO;
     } //DONE
 
+    public TripDTO convertTripToDTO(Trip trip) {
+        TripDTO tripDTO = new TripDTO();
+
+        tripDTO.setId(trip.getId());
+        tripDTO.setDriver(convertDriverToDTO(trip.getDriver()));
+        tripDTO.setCar(convertCarToDTO(trip.getCar()));
+        tripDTO.setOrder(convertOrderToDTO(trip.getOrder()));
+        tripDTO.setPrice(trip.getPrice());
+        tripDTO.setEnd_date(trip.getEndDate());
+        tripDTO.setStart_date(trip.getStartDate());
+        return tripDTO;
+    }
+
     public Trip convertToEntity(TripDTO tripDTO) {
         Trip trip = new Trip();
         trip.setId(tripDTO.getId());

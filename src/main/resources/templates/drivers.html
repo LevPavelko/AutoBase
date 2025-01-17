@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns =="http://www.w3.org/1999/ xmlns th =="http://www.thymeleaf.>
+<head>
+
+    <meta charset="UTF-8">
+    <title>Drivers</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/menu.css" th:href="@{/css/menu.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
+</head>
+<body>
+
+<th:block th:include="/menu/menu"></th:block>
+
+
+<div class="items-container">
+    <div th:each="driver : ${drivers}" class="item-card">
+        <div class="item-field"><strong>Id:</strong> <span th:utext="${driver.id}"></span></div>
+        <div class="item-field"><strong>First Name:</strong> <span th:utext="${driver.userDTO.firstName}"></span></div>
+        <div class="item-field"><strong>Last Name:</strong> <span th:utext="${driver.userDTO.lastName}"></span></div>
+        <div class="item-field"><strong>Email:</strong> <span th:utext="${driver.userDTO.email}"></span></div>
+        <div class="item-field"><strong>Experience:</strong> <span th:utext="${driver.experienceInYears} + ' years'"> years</span></div>
+
+        <div class="item-field" th:switch="${driver.isBusy()}"><strong>Is Busy :</strong>
+            <span th:case="${true}">Yes</span>
+            <span th:case="${false}">No</span>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+</body>
+</html>

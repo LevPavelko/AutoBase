@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Driver</title>
+  <link rel="stylesheet" type="text/css" media="all" href="/css/menu.css" th:href="@{/css/menu.css}" />
+  <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
+</head>
+<body>
+<th:block th:include="/menu/menu"></th:block>
+<div th:if="${message}" style="color: red;">
+  <p th:text="${message}"></p>
+</div>
+
+<form th:action="@{/AddDriverForm}" th:object="${driverDTO}" method="post" >
+
+  <label for="firstName">First Name:</label>
+  <input type="text" id="firstName" th:field="*{userDTO.firstName}">
+
+  <label for="lastName">Last Name:</label>
+  <input type="text" id="lastName" th:field="*{userDTO.lastName}">
+
+  <label for="age">Age:</label>
+  <input type="number" id="age" th:field="*{userDTO.age}">
+
+  <label for="email">Email:</label>
+  <input type="text" id="email" th:field="*{userDTO.email}">
+
+  <label for="experienceInYears">Experience In Years:</label>
+  <input type="number" id="experienceInYears" th:field="*{experienceInYears}">
+
+  <button type="submit">Add Driver</button>
+</form>
+
+</body>
+</html>

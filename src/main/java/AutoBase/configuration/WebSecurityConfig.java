@@ -1,22 +1,14 @@
 package AutoBase.configuration;
 
-import AutoBase.service.user_service.UserService;
-import AutoBase.utils.CustomUserDetails;
+import AutoBase.service.user_service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 
 @Configuration
@@ -24,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
     private final BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private MyBasicAuthenticationEntryPoint authenticationEntryPoint;
@@ -35,6 +27,10 @@ protected void configure(HttpSecurity http) throws Exception {
 
     //http.authorizeRequests().mvcMatchers("/indexDispatcher").access("hasAnyRole('ROLE_DISPATCHER')");
     http.authorizeRequests().mvcMatchers("/orders").access("hasAnyRole('ROLE_DISPATCHER')");
+    http.authorizeRequests().mvcMatchers("/drivers").access("hasAnyRole('ROLE_DISPATCHER')");
+    http.authorizeRequests().mvcMatchers("/trips").access("hasAnyRole('ROLE_DISPATCHER')");
+    http.authorizeRequests().mvcMatchers("/addDriver").access("hasAnyRole('ROLE_DISPATCHER')");
+
     http.authorizeRequests()
             .mvcMatchers("/loginPage").permitAll()
             .anyRequest().authenticated();
@@ -61,7 +57,7 @@ protected void configure(HttpSecurity http) throws Exception {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(userServiceImpl).passwordEncoder(passwordEncoder);
     }
 
 //    @Bean

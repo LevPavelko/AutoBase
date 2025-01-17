@@ -1,7 +1,7 @@
 body {
     background: #5e5b5b;
 }
-.orders-container {
+.items-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -9,7 +9,7 @@ body {
     justify-content: center;
 }
 
-.order-card {
+.item-card {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -19,17 +19,17 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.order-card .order-field {
+.item-card .item-field {
     margin-bottom: 10px;
     font-size: 14px;
     color: #333;
 }
 
-.order-card .order-field strong {
+.item-card .item-field strong {
     color: #555;
     margin-right: 5px;
 }
-.orders-container a{
+.items-container a{
     margin-right: 10px;
     padding: 5px;
 
@@ -40,4 +40,18 @@ body {
 a{
     color: white;
     text-decoration: none;
+}
+.center-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.filtration-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #b1b1b1;
+    width: 80%;
+
 }

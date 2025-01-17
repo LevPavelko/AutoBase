@@ -39,4 +39,10 @@ public class DriverServiceImpl implements DriverService {
         Driver driver = converter.convertToEntity(dto);
         driverRepository.save(driver);
     }
+
+    @Override
+    public void save(DriverDTO dto) {
+        Driver driver = converter.convertToEntity(dto);
+        driverRepository.save(driver);
+    }
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Trip</title>
+  <link rel="stylesheet" type="text/css" media="all" href="/css/menu.css" th:href="@{/css/menu.css}" />
+  <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
+</head>
+<body>
+
+  <th:block th:include="/menu/menu"></th:block>
+
+  <div th:if="${message}" style="color: red;">
+    <p th:text="${message}"></p>
+  </div>
+
+  <form th:action="@{/updateTripForm}" th:object="${tripDTO}" method="post" >
+
+    <input type="hidden" th:field="*{id}" th:value="${id}" />
+    <input type="hidden" th:field="*{start_date}" th:value="${start_date}" />
+    <input type="hidden" th:value="*{order.id}" name="orderId" />
+    <input type="hidden" th:value="*{driver.id}" name="driverId"/>
+    <input type="hidden" th:value="*{car.id}" name="carId"/>
+
+
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" th:field="*{start_date}">
+
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" th:field="*{end_date}">
+
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" th:field="*{price}">
+
+
+    <button type="submit">Update Trip</button>
+  </form>
+
+</body>
+</html>

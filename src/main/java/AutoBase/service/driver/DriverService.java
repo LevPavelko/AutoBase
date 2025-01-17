@@ -10,4 +10,5 @@ public interface DriverService {
     Optional<DriverDTO> findById(Long id);
     List<DriverDTO> findAll();
     void update(DriverDTO driverDTO);
+    void save(DriverDTO driverDTO);
 }
