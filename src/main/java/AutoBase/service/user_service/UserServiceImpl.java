@@ -5,6 +5,7 @@ import AutoBase.dao.UserRepository;
 import AutoBase.dao.UserRoleRepository;
 import AutoBase.dto.UserDTO;
 import AutoBase.model.User;
+import AutoBase.utils.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         List<GrantedAuthority> grantList = new ArrayList<>();
         grantList.add(new SimpleGrantedAuthority(roleName));
 
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantList);
-
+//        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantList);
+        return CustomUserDetails.fromUser(user);
     }
 
     @Override

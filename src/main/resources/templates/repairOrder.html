@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Repair Order</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/menu.css" th:href="@{/css/menu.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/form.css" th:href="@{/css/form.css}" />
+</head>
+<body>
+    <th:block th:include="/menu/menu"></th:block>
+    <div class="center-div">
+        <div class="form-container">
+            <h1 id="title">Repair Order</h1>
+            <form th:action="@{/RepairOrderForm}" th:object="${repairOrder}" method="post" id="survey-form">
+
+                <div th:if="${message}" style="color: red;">
+                    <p th:text="${message}"></p>
+                </div>
+
+                <input type="hidden" name="tripId" th:value="${tripId}"/>
+                <input type="hidden" name="carId" th:value="${carId}"/>
+                <input type="hidden" name="driverId" th:value="${driverId}"/>
+
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea  id="description" th:field="*{description}"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" id="submit"  value="Add">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

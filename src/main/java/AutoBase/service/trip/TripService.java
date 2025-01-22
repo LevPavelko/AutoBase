@@ -9,7 +9,8 @@ import java.util.Optional;
 public interface TripService {
        void save(TripDTO tripDTO);
        void update(TripDTO tripDTO);
-//    void delete(TripDTO tripDTO);
+        TripDTO findByDriverId(Long driverId);
+        List<TripDTO> findAllDriverId(Long driverId);
        List<TripDTO> findAll();
         Optional<TripDTO> findById(Long id);
 }

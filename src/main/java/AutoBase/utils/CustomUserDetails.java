@@ -57,7 +57,7 @@ public class CustomUserDetails implements UserDetails {
 
     public static UserDetails fromUser(User user) {
 
-        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
+        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority( user.getRole().getRole()));
         return new CustomUserDetails(user.getEmail(), user.getPassword(), authorities);
     }
 }

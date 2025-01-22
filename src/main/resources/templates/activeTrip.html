@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Active Trips</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/menu.css" th:href="@{/css/menu.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
+</head>
+<body>
+<th:block th:include="/menu/menu"></th:block>
+
+<h1 style="color: white" class="center-div" th:if="${tripDTO != null}">Your active trip</h1>
+<h1 style="color: white" class="center-div" th:if="${tripDTO == null}">You don't have activ trip.</h1>
+
+
+<div class="center-div">
+    <div class="item-card" th:if="${tripDTO != null}">
+
+        <div class="item-field"><strong>Car:</strong> <span th:utext="${tripDTO.car.id}"></span></div>
+        <div class="item-field"><strong>Start Date:</strong> <span th:utext="${tripDTO.start_date}"></span></div>
+        <div class="item-field"><strong>Price:</strong> <span th:utext="${tripDTO.price}"></span></div>
+        <div class="item-field"><strong>Cargo Type:</strong> <span th:utext="${tripDTO.order.cargoType}"></span></div>
+        <div class="item-field"><strong>Cargo Weight:</strong> <span th:utext="${tripDTO.order.cargoWeight}"></span></div>
+
+        <a th:href="@{'/repairOrder?tripId=' + ${tripDTO.id} + '&carId=' + ${tripDTO.car.id}}" th:if="${tripDTO.car.broken == false}"
+           style="background-color: #09a305">
+            Make repair order
+        </a>
+    </div>
+</div>
+
+
+
+</body>
+</html>

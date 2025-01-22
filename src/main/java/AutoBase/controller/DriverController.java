@@ -48,7 +48,8 @@ public class DriverController {
 
     @PostMapping("/AddDriverForm")
     public String addDriverForm(DriverDTO driverDTO, Model model) {
-        if(Objects.isNull(driverDTO)) {
+        if(driverDTO.getUserDTO().getFirstName() == "" || driverDTO.getUserDTO().getLastName() == "" ||
+                driverDTO.getUserDTO().getAge() == 0 || driverDTO.getExperienceInYears() == 0) {
 
             model.addAttribute("message", "Fill in all fields");
             model.addAttribute("driverDTO", driverDTO);

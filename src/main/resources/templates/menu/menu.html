@@ -3,10 +3,13 @@
 
     <nav class="site-nav">
         <ul>
-            <li><a th:if="${#request.isUserInRole('ROLE_DISPATCHER')}" th:href="@{/orders}">Orders</a></li>
-            <li><a th:if="${#request.isUserInRole('ROLE_DISPATCHER')}"  th:href="@{/trips}">Trips</a></li>
-            <li><a th:if="${#request.isUserInRole('ROLE_DISPATCHER')}" th:href="@{/drivers}">Drivers</a></li>
-            <li><a th:if="${#request.isUserInRole('ROLE_DISPATCHER')}" th:href="@{/addDriver}">Add Driver</a></li>
+            <li th:if="${#request.isUserInRole('ROLE_DISPATCHER')}"><a  th:href="@{/orders}">Orders</a></li>
+            <li th:if="${#request.isUserInRole('ROLE_DISPATCHER')}"><a th:href="@{/trips}">Trips</a></li>
+            <li th:if="${#request.isUserInRole('ROLE_DISPATCHER')}"><a th:href="@{/drivers}">Drivers</a></li>
+            <li th:if="${#request.isUserInRole('ROLE_DISPATCHER')}"><a th:href="@{/addDriver}">Add Driver</a></li>
+            <li th:if="${#request.isUserInRole('ROLE_DISPATCHER')}"><a th:href="@{/repairOrders}">Active Repair Orders</a></li>
+            <li th:if="${#request.isUserInRole('ROLE_DRIVER')}"><a th:href="@{/activeTrip}">Active Trip</a></li>
+            <li th:if="${#request.isUserInRole('ROLE_DRIVER')}"><a th:href="@{/tripsHistory}">History Of Trips</a></li>
             <li><a th:href="@{/logout}">Logout</a></li>
         </ul>
     </nav>

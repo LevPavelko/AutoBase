@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -150,6 +152,15 @@ public class TripController {
                 Optional<CarDTO> optionalCarDTO = carService.findById(carId);
                 Optional<DriverDTO> optionalDriverDTO = driverService.findById(driverId);
                 Optional<OrderDTO> optionalOrderDTO = orderService.findById(orderId);
+
+                if(tripDTO.getEnd_date() != null){
+                    optionalCarDTO.get().setFree(true);
+                    carService.update(optionalCarDTO.get());
+                    optionalDriverDTO.get().setBusy(false);
+                    driverService.update(optionalDriverDTO.get());
+                    optionalCarDTO.get().setFree(true);
+                    carService.update(optionalCarDTO.get());
+                }
                 tripDTO.setCar(optionalCarDTO.get());
                 tripDTO.setDriver(optionalDriverDTO.get());
                 tripDTO.setOrder(optionalOrderDTO.get());
@@ -167,6 +178,24 @@ public class TripController {
 
     }
 
+    @RequestMapping("/activeTrip")
+    public String activeTrip(Model model, HttpSession session) {
+        Long driverId = (Long) session.getAttribute("driverId");
+        TripDTO trip = tripService.findByDriverId(driverId);
+        model.addAttribute("tripDTO", trip);
+        return "/activeTrip";
+
+    }
+
+
+    @RequestMapping("/tripsHistory")
+    public String tripsHistoryForDriver(Model model, HttpSession session) {
+        Long driverId = (Long) session.getAttribute("driverId");
+        List<TripDTO> trips = tripService.findAllDriverId(driverId);
+        System.out.println("trips:" + trips);
+        model.addAttribute("trips", trips);
+        return "tripsHistory";
+    }
 
 
 }

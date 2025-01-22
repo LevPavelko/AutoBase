@@ -4,6 +4,7 @@ package AutoBase.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -26,11 +27,11 @@ public class RepairOrder {
     private String description;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "trip_id")
+    private Trip trip;
 
     @Column(name = "request_date")
-    private Date requestDate;
+    private LocalDate requestDate;
 
     @Column(name = "is_repaired")
     private boolean isRepaired;

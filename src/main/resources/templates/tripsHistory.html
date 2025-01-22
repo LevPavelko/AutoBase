@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trips History</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/menu.css" th:href="@{/css/menu.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
+</head>
+<body>
+<th:block th:include="/menu/menu"></th:block>
+
+
+
+<div class="items-container">
+    <div th:each="trip : ${trips}" class="item-card">
+        <div class="item-field"><strong>Id:</strong> <span th:utext="${trip.id}"></span></div>
+        <div class="item-field"><strong>Car:</strong> <span th:utext="${trip.car.id}"></span></div>
+        <div class="item-field"><strong>Order:</strong> <span th:utext="${trip.order.id}"></span></div>
+        <div class="item-field"><strong>Cargo Type:</strong> <span th:utext="${trip.order.cargoType}"></span></div>
+        <div class="item-field"><strong>Cargo Weight:</strong> <span th:utext="${trip.order.cargoWeight}"></span></div>
+        <div class="item-field"><strong>Destination:</strong> <span th:utext="${trip.order.Destination}"></span></div>
+        <div class="item-field"><strong>Price:</strong> <span th:utext="${trip.price}"></span></div>
+        <div class="item-field"><strong>Start Date:</strong> <span th:utext="${trip.start_date}"></span></div>
+        <div class="item-field"><strong>End Date:</strong> <span th:utext="${trip.end_date}"></span></div>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

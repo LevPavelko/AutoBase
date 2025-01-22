@@ -1,5 +1,5 @@
 body {
-    background: #5e5b5b;
+    background: #777777;
 }
 .items-container {
     display: flex;
@@ -45,6 +45,7 @@ a{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 30px;
 
 }
 .filtration-container{

@@ -1,6 +1,4 @@
 package AutoBase.model;
-
-
 import lombok.Data;
 
 import javax.persistence.*;

@@ -66,7 +66,9 @@ public class Converter {
 
     public TripDTO convertTripToDTO(Trip trip) {
         TripDTO tripDTO = new TripDTO();
-
+        if(trip == null){
+            return null;
+        }
         tripDTO.setId(trip.getId());
         tripDTO.setDriver(convertDriverToDTO(trip.getDriver()));
         tripDTO.setCar(convertCarToDTO(trip.getCar()));
@@ -76,6 +78,18 @@ public class Converter {
         tripDTO.setStart_date(trip.getStartDate());
         return tripDTO;
     }
+
+    public RepairOrderDTO convertRepairOrderToDTO(RepairOrder repairOrder) {
+        RepairOrderDTO repairOrderDTO = new RepairOrderDTO();
+        repairOrderDTO.setId(repairOrder.getId());
+        repairOrderDTO.setDriver(convertDriverToDTO(repairOrder.getDriver()));
+        repairOrderDTO.setCar(convertCarToDTO(repairOrder.getCar()));
+        repairOrderDTO.setDescription(repairOrder.getDescription());
+        repairOrderDTO.setTrip(convertTripToDTO(repairOrder.getTrip()));
+        repairOrderDTO.setRequestDate(repairOrder.getRequestDate());
+        repairOrderDTO.setRepaired(repairOrder.isRepaired());
+        return repairOrderDTO;
+    } //DONE
 
     public Trip convertToEntity(TripDTO tripDTO) {
         Trip trip = new Trip();
@@ -148,4 +162,16 @@ public class Converter {
         userRole.setRole(userRoleDTO.getRole());
         return userRole;
     } //DONE
+
+    public RepairOrder convertToEntity(RepairOrderDTO repairOrderDTO) {
+        RepairOrder repairOrder = new RepairOrder();
+        repairOrder.setId(repairOrderDTO.getId());
+        repairOrder.setDriver(convertToEntity(repairOrderDTO.getDriver()));
+        repairOrder.setCar(convertToEntity(repairOrderDTO.getCar()));
+        repairOrder.setTrip(convertToEntity(repairOrderDTO.getTrip()));
+        repairOrder.setRequestDate(repairOrderDTO.getRequestDate());
+        repairOrder.setDescription(repairOrderDTO.getDescription());
+        repairOrder.setRepaired(repairOrderDTO.isRepaired());
+        return repairOrder;
+    }
 }

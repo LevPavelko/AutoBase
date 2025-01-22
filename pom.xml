@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ua.com.foxminded</groupId>
-	<artifactId>UniversityCms</artifactId>
+	<artifactId>AutoBase</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>UniversityCms</name>
 	<description>University timetable</description>

@@ -43,32 +43,32 @@ CREATE TABLE IF NOT EXISTS Orders(
     has_trip BOOLEAN,
     FOREIGN KEY(dispatcher_id) REFERENCES Dispatchers(id) ON DELETE CASCADE
 );
+CREATE TABLE IF NOT EXISTS Trips(
+                                    id serial primary key,
+                                    driver_id integer,
+                                    car_id integer,
+                                    start_date date not null,
+                                    end_date date,
+                                    price integer not null,
+                                    order_id integer,
+                                    FOREIGN KEY(driver_id) REFERENCES Drivers(id) ON DELETE CASCADE,
+    FOREIGN KEY(car_id) REFERENCES Cars(id) ON DELETE CASCADE,
+    FOREIGN KEY(order_id) REFERENCES Orders(id) ON DELETE CASCADE
+    );
 
 CREATE TABLE IF NOT EXISTS Repair_Orders(
     id serial primary key,
     driver_id integer not null,
     car_id integer not null,
     description varchar(50) not null,
-    order_id integer,
+    trip_id integer,
     request_date date not null,
     is_repaired BOOLEAN not null,
     FOREIGN KEY(driver_id) REFERENCES Drivers(id) ON DELETE CASCADE,
     FOREIGN KEY(car_id) REFERENCES Cars(id) ON DELETE CASCADE,
-    FOREIGN KEY(order_id) REFERENCES Orders(id) ON DELETE CASCADE
+    FOREIGN KEY(trip_id) REFERENCES Trips(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS Trips(
-    id serial primary key,
-    driver_id integer,
-    car_id integer,
-    start_date date not null,
-    end_date date,
-    price integer not null,
-    order_id integer,
-    FOREIGN KEY(driver_id) REFERENCES Drivers(id) ON DELETE CASCADE,
-    FOREIGN KEY(car_id) REFERENCES Cars(id) ON DELETE CASCADE,
-    FOREIGN KEY(order_id) REFERENCES Orders(id) ON DELETE CASCADE
-);
 
 insert into UserRole(role) values ('DRIVER');
 insert into UserRole(role) values ('DISPATCHER');
