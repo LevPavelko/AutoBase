@@ -89,6 +89,9 @@ public class RepairOrderController {
         Optional<RepairOrderDTO> repairOrderDTO = repairOrderService.findById(id);
         repairOrderDTO.get().setRepaired(true);
         repairOrderService.update(repairOrderDTO.get());
+        CarDTO carDTO = repairOrderDTO.get().getCar();
+        carDTO.setBroken(false);
+        carService.update(carDTO);
         return "/home";
     }
 }
