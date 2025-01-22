@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Repair Orders</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/menu.css" th:href="@{/css/menu.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
+</head>
+<body>
+<th:block th:include="/menu/menu"></th:block>
+<h1 th:if="${repairOrders.isEmpty()}" class="center-div" style="color: white">Repair orders list is empty</h1>
+<div class="items-container">
+    <div th:each="order : ${repairOrders}" class="item-card">
+        <div class="item-field"><strong>Driver:</strong> <span th:utext="${order.driver.id}"></span></div>
+        <div class="item-field"><strong>Car:</strong> <span th:utext="${order.car.id}"></span></div>
+        <div class="item-field"><strong>Description:</strong> <span th:utext="${order.description}"></span></div>
+        <div class="item-field"><strong>Request Date:</strong> <span th:utext="${order.requestDate}"></span></div>
+
+        <div>
+            <a th:href="@{'/updateRepairOrder?id=' + ${order.id} }" style="background-color: #003797" >
+                Set Repaired
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

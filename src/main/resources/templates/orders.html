@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns =="http://www.w3.org/1999/ xmlns th =="http://www.thymeleaf.>
+<head>
+
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/menu.css" th:href="@{/css/menu.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
+</head>
+<body>
+
+    <th:block th:include="/menu/menu"></th:block>
+
+
+<div class="items-container">
+    <div th:each="order : ${orders}" class="item-card">
+        <div class="item-field"><strong>Request Date:</strong> <span th:utext="${order.requestData}"></span></div>
+        <div class="item-field"><strong>Cargo Weight:</strong> <span th:utext="${order.cargoWeight}"></span></div>
+        <div class="item-field"><strong>Cargo Type:</strong> <span th:utext="${order.cargoType}"></span></div>
+        <div class="item-field"><strong>Destination:</strong> <span th:utext="${order.destination}"></span></div>
+
+        <div th:if="${!order.hasTrip}">
+            <a th:href="@{'/AddTrip?orderId=' + ${order.id} }"
+               style="background-color: #09a305">
+                Make new trip
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

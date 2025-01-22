@@ -4,5 +4,7 @@ public enum CargoType {
     BULK,
     LIQUID,
     CONTAINER,
-    PIECE
+    PIECE,
+    PERISHABLE,
+    DUSTED
 }

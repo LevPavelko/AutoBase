@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface CarRepository  extends JpaRepository<Car,Long> {
+
 }
 
 

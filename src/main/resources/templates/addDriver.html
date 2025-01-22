@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Driver</title>
+  <link rel="stylesheet" type="text/css" media="all" href="/css/menu.css" th:href="@{/css/menu.css}" />
+  <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
+  <link rel="stylesheet" type="text/css" media="all" href="/css/form.css" th:href="@{/css/form.css}" />
+</head>
+<body>
+  <th:block th:include="/menu/menu"></th:block>
+
+  <div class="center-div">
+    <div class="form-container">
+      <h1 id="title">Add Driver</h1>
+      <form th:action="@{/AddDriverForm}" th:object="${driverDTO}" method="post" id="survey-form">
+
+        <div th:if="${message}" style="color: red;">
+          <p th:text="${message}"></p>
+        </div>
+
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input type="text" id="firstName" th:field="*{userDTO.firstName}">
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" th:field="*{userDTO.lastName}">
+        </div>
+
+        <div class="form-group">
+          <label for="age">Age:</label>
+          <input type="number" id="age" th:field="*{userDTO.age}">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="text" id="email" th:field="*{userDTO.email}">
+        </div>
+
+        <div class="form-group">
+          <label for="experienceInYears">Experience In Years:</label>
+          <input type="number" id="experienceInYears" th:field="*{experienceInYears}">
+        </div>
+
+        <div class="form-group">
+          <input type="submit" id="submit"  value="Add Driver">
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+
+
+</body>
+</html>

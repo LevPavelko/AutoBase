@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns =="http://www.w3.org/1999/ xmlns th =="http://www.thymeleaf.>
+<head>
+
+    <meta charset="UTF-8">
+    <title>Trips</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/menu.css" th:href="@{/css/menu.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
+</head>
+<body>
+
+<th:block th:include="/menu/menu"></th:block>
+
+
+<!-- <div class="center-div">
+    <div class="filtration-container">
+        <h2>Filter by: </h2>
+        <select>
+            <option>Select </option>
+        </select>
+    </div>
+</div>-->
+
+<div class="items-container">
+    <div th:each="trip : ${trips}" class="item-card">
+        <div class="item-field"><strong>Id:</strong> <span th:utext="${trip.id}"></span></div>
+        <div class="item-field"><strong>Driver:</strong> <span th:text="${trip.driver.userDTO.firstName + ' ' + trip.driver.userDTO.lastName}"></span>
+        </div> <!-- link to the page with driver info -->
+        <div class="item-field"><strong>Car:</strong> <span th:utext="${trip.car.id}"></span></div>
+        <div class="item-field"><strong>Order:</strong> <span th:utext="${trip.order.id}"></span></div>
+        <div class="item-field"><strong>Price:</strong> <span th:utext="${trip.price}"></span></div>
+        <div class="item-field"><strong>Start Date:</strong> <span th:utext="${trip.start_date}"></span></div>
+        <div th:if="${trip.end_date != null}">
+            <div class="item-field"><strong>End Date:</strong> <span th:utext="${trip.end_date}"></span></div>
+        </div>
+        <div th:if="${trip.end_date == null}">
+            <div class="item-field"><strong>The trip still in a progress</strong></div>
+        </div>
+
+        <div th:if="${trip.end_date == null}">
+            <a th:href="@{'/updateTrip?tripId=' + ${trip.id} }" style="background-color: #003797" >
+                Update
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

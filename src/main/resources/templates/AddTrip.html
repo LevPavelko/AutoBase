@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Trip</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/menu.css" th:href="@{/css/menu.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/index.css" th:href="@{/css/index.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/form.css" th:href="@{/css/form.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/date.css" th:href="@{/css/date.css}" />
+
+</head>
+<body>
+    <th:block th:include="/menu/menu"></th:block>
+
+    <div class="center-div">
+        <div class="form-container">
+            <h1 id="title">Add Trip</h1>
+            <form th:action="@{/AddTripForm}" th:object="${tripDTO}" method="post" id="survey-form">
+
+                <div th:if="${message}" style="color: red;">
+                    <p th:text="${message}"></p>
+                </div>
+
+                <input type="hidden" name="orderId" th:value="${orderId}" />
+                <div class="form-group">
+                    <label>Driver:</label>
+                    <select name="driverId">
+                        <option value="" disabled selected>Select a driver</option>
+                        <option th:each="driver : ${drivers}"
+                                th:value="${driver.id}"
+                                th:text="${driver.userDTO.firstName}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Car:</label>
+                    <select name="carId">
+                        <option value="" disabled selected>Select a car</option>
+                        <option th:each="car : ${cars}"
+                                th:value="${car.id}"
+                                th:text="${car.id}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label >Start Date:</label>
+                    <input type="text" id="dateInput" placeholder="Select a date" th:field="*{start_date}">
+                    <div class="calendar" id="calendar">
+                        <div class="header">
+                            <button id="prevBtn" type="button">&lt;</button>
+                            <h2 id="monthYear">Month Year</h2>
+                            <button id="nextBtn" type="button">&gt;</button>
+                        </div>
+                        <div class="days" id="daysContainer"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" th:field="*{price}">
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" id="submit" value="Add Trip">
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/date.js" th:src="@{/js/date.js}"></script>
+</body>
+</html>
