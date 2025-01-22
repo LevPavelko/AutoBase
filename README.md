@@ -1,3 +1,2 @@
-# university-cms
-
-University timetable application
+# AutoBase
+Simple Java Web Application for logistic
