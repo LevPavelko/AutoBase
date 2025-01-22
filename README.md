@@ -1,2 +1,3 @@
 # AutoBase
-AutoBase is the final project by Java
+
+Simple Java Web Application for logistic
