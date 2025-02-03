@@ -89,4 +89,59 @@ public class TripServiceImplTest {
         return trip;
 
     }
+
+    @Test
+    @Transactional
+    @Sql("classpath:addTrips.sql")
+    public void findAll_ShouldReturnListOfTrips_WhenCalled() {
+        List<Trip> expectedResult = new ArrayList<>();
+        Trip trip = this.ExpectedTrip();
+
+        expectedResult.add(trip);
+
+        List<Trip> actualResult = tripRepository.findAll();
+        assertEquals(expectedResult,
+                actualResult,
+                "Execute method findAll from trips");
+
+
+    }
+
+    @Test
+    @Transactional
+    @Sql("classpath:addTrips.sql")
+    public void findById_ShouldReturnTripObject_WhenCalled() {
+        Optional<Trip> actualResult = tripRepository.findById(1L);
+        Trip expectedTrip = this.ExpectedTrip();
+        assertEquals(expectedTrip, actualResult.get(), "Execute method findById from trips");
+    }
+
+    @Test
+    @Transactional
+    @Sql("classpath:addTrips.sql")
+    public void findByDriverId_ShouldReturnTripObject_WhenCalled() {
+        Trip actualResult = tripRepository.findByDriverId(1L);
+
+        Trip expectedTrip = this.ExpectedTrip();
+        assertEquals(expectedTrip, actualResult, "Execute method findByDriverId from trips");
+
+
+    }
+
+    public Trip ExpectedTrip(){
+        Trip expectedTrip = new Trip();
+        expectedTrip.setId(1L);
+        expectedTrip.setStartDate(LocalDate.now());
+
+        Optional<Driver> driver = driverRepository.findById(1L);
+        Optional<Car> car = carRepository.findById(1L);
+        Optional<Order> order = orderRepository.findById(1L);
+
+        expectedTrip.setDriver(driver.get());
+        expectedTrip.setCar(car.get());
+        expectedTrip.setOrder(order.get());
+        expectedTrip.setPrice(1500);
+        return expectedTrip;
+    }
+
 }
