@@ -6,6 +6,7 @@ import AutoBase.model.CargoType;
 import AutoBase.service.car.CarServiceImpl;
 import AutoBase.service.driver.DriverServiceImpl;
 import AutoBase.service.order.OrderServiceImpl;
+import AutoBase.service.repair_order_service.RepairOrderServiceImpl;
 import AutoBase.service.trip.TripServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -31,10 +33,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TripControllerTest {
-
+public class RepairOrderControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -54,6 +56,9 @@ public class TripControllerTest {
     @MockBean
     private TripServiceImpl tripService;
 
+    @MockBean
+    private RepairOrderServiceImpl repairOrderService;
+
 
     @BeforeEach
     public void setup() {
@@ -64,54 +69,59 @@ public class TripControllerTest {
     }
 
     @Test
-    public void testGetTrips_ShouldReturnAllTrips_WhenRequestSendFromDispatcher() throws Exception {
-        List<TripDTO> tripDTOS = new ArrayList<>();
+    public void testGetRepairOrders_ShouldReturnAllOrders_WhenRequestSendFromDispatcher() throws Exception {
+        List<RepairOrderDTO> repairOrderDTOS = new ArrayList<>();
+        repairOrderDTOS.add(createRepairOrder());
+        List<RepairOrderDTO> repairedOrders = repairOrderDTOS.stream()
+                .filter(RepairOrderDTO -> !RepairOrderDTO.isRepaired())
+                .collect(Collectors.toList());
 
-        tripDTOS.add(createTrip());
-
-        when(tripService.findAll()).thenReturn(tripDTOS);
-        mockMvc.perform(get("/trips").with(user("popov.alex@gmail.com").password("123").roles("DISPATCHER")))
+        when(repairOrderService.findAll()).thenReturn(repairedOrders);
+        mockMvc.perform(get("/repairOrders").with(user("popov.alex@gmail.com").password("123").roles("DISPATCHER")))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("trips", tripService.findAll()))
-                .andExpect(view().name("trips"));
+                .andExpect(model().attribute("repairOrders", repairOrderService.findAll()))
+                .andExpect(view().name("repairOrders"));
 
     }
 
     @Test
-    public void testAddTripForm_ShouldSaveTripAndRedirect_WhenDataIsValid() throws Exception {
-        Long orderId = 1L;
-        Long carId = 1L;
-        Long driverId = 1L;
+    public void testRepairOrderForm_ShouldSaveRepairOrderAndRedirect_WhenDataIsValid() throws Exception {
+        Long tripId = 1L;
+        Long carId = 2L;
+        Long driverId = 3L;
+
+        TripDTO tripDTO = createTrip();
+        tripDTO.setId(tripId);
 
         CarDTO carDTO = createCar();
-        OrderDTO orderDTO = createOrder(createDispatcher());
+        carDTO.setId(carId);
+        carDTO.setBroken(false);
+
         DriverDTO driverDTO = createDriver();
-        TripDTO tripDTO = createTrip();
+        driverDTO.setId(driverId);
 
+        RepairOrderDTO repairOrderDTO = createRepairOrder();
 
+        when(tripService.findById(tripId)).thenReturn(Optional.of(tripDTO));
         when(carService.findById(carId)).thenReturn(Optional.of(carDTO));
-        when(orderService.findById(orderId)).thenReturn(Optional.of(orderDTO));
         when(driverService.findById(driverId)).thenReturn(Optional.of(driverDTO));
 
-        mockMvc.perform(post("/AddTripForm").with(user("popov.alex@gmail.com").password("123").roles("DISPATCHER"))
-                        .param("orderId", orderId.toString())
+
+        mockMvc.perform(post("/RepairOrderForm")
+                        .with(user("dispatcher@gmail.com").password("123").roles("DISPATCHER"))
+                        .param("tripId", tripId.toString())
                         .param("carId", carId.toString())
-                        .param("driverId", driverId.toString())
-                        .param("price", "1500")
-                        .param("start_date", "2025-02-01")
-                        .param("end_date", "2025-02-10"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/orders"));
+                        .param("driverId", driverId.toString()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/home"));
+
+
 
         verify(carService, times(1)).update(any(CarDTO.class));
-        verify(orderService, times(1)).update(any(OrderDTO.class));
-        verify(driverService, times(1)).update(any(DriverDTO.class));
-        verify(tripService, times(1)).save(any(TripDTO.class));
+        verify(repairOrderService, times(1)).save(any(RepairOrderDTO.class));
     }
 
-
-    public TripDTO createTrip()
-    {
+    public TripDTO createTrip() {
         TripDTO tripDTO = new TripDTO();
 
         tripDTO.setDriver(createDriver());
@@ -163,8 +173,7 @@ public class TripControllerTest {
         return orderDTO;
     }
 
-    public DriverDTO createDriver()
-    {
+    public DriverDTO createDriver(){
         DriverDTO driverDTO = new DriverDTO();
         UserDTO userDTO = new UserDTO();
 
@@ -180,5 +189,18 @@ public class TripControllerTest {
         driverDTO.setUserDTO(userDTO);
         return driverDTO;
     }
+
+    public RepairOrderDTO createRepairOrder(){
+        RepairOrderDTO repairOrderDTO = new RepairOrderDTO();
+        repairOrderDTO.setDriver(createDriver());
+        repairOrderDTO.setCar(createCar());
+        repairOrderDTO.setDescription("lalala");
+        repairOrderDTO.setTrip(createTrip());
+        repairOrderDTO.setRequestDate(LocalDate.now());
+        repairOrderDTO.setRepaired(false);
+        return repairOrderDTO;
+    }
+
+
 
 }

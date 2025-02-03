@@ -34,6 +34,7 @@ public class RepairOrderController {
     @Autowired
     private TripServiceImpl tripService;
 
+
     @Autowired
     private CarServiceImpl carService;
 
@@ -81,7 +82,7 @@ public class RepairOrderController {
                 .collect(Collectors.toList());
 
         model.addAttribute("repairOrders", repairedOrders);
-        return "/repairOrders";
+        return "repairOrders";
     }
 
     @GetMapping("/updateRepairOrder")
